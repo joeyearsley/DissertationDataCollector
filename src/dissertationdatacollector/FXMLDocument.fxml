@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane id="GridPane" alignment="center" hgap="10" vgap="10" prefHeight="200" prefWidth="320" 
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="dissertationdatacollector.FXMLDocumentController"
+>
+    <Button fx:id="connectButton" GridPane.halignment="CENTER" text="Connect" onAction="#connect" visible="true"/>
+    <Label   GridPane.rowIndex="1" GridPane.halignment="CENTER"  fx:id="connectedLabel"/>
+    <Button GridPane.rowIndex="2" GridPane.halignment="CENTER"  fx:id="startButton" text="Start" onAction="#start" visible="false" />
+    <Button GridPane.rowIndex="2" GridPane.halignment="CENTER"  fx:id="stopButton" text="Stop" onAction="#stop" visible="false"/>
+    <TextField GridPane.rowIndex="3" GridPane.halignment="CENTER"  fx:id="saveFileName"/>
+    <Label   GridPane.rowIndex="4" GridPane.halignment="CENTER"  fx:id="timerLabel"/>
+</GridPane>
