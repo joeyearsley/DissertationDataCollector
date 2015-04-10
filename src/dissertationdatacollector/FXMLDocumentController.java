@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dissertationdatacollector;
 
 import java.io.File;
@@ -19,7 +15,7 @@ import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * Starts up the GUI, acts as controller.
  * @author josephyearsley
  */
 public class FXMLDocumentController implements Initializable {
@@ -31,21 +27,31 @@ public class FXMLDocumentController implements Initializable {
     public Button stopButton;
     public Label timerLabel;
     public TextField saveFileName;
+    //To ensure 10 seconds
     private final countdownTimer countdownTime = new countdownTimer();
     protected final String FILE_LOCATION = "/Users/josephyearsley/Documents/University/Dissertation/Data/";
-    private MindStreamSystemTray M = new MindStreamSystemTray();
-    private final Boolean connected = M.clientConnect();
+    private MindStream M = new MindStream();
+    private Boolean connected = M.clientConnect();
     private static final Logger logger = Logger.getLogger(FXMLDocumentController.class);
 
+    /**
+     * Logic for connect button.
+     * @param event Connect button clicked.
+     */
     @FXML
     private void connect(ActionEvent event) {
         if (M.clientConnect()) {
+            connected = true;
             connectedLabel.setText("Connected");
             connectButton.setVisible(false);
             startButton.setVisible(true);
         }
     }
 
+    /**
+     * Starts data collection.
+     * @param event Start button clicked.
+     */
     @FXML
     private void start(ActionEvent event) {
         if (saveFileName.getText().length() > 0) {
@@ -71,6 +77,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    /**
+     * Stops data collection.
+     * @param event Stop button clicked.
+     */
     @FXML
     private void stop(ActionEvent event) {
         M.setWrite(false);
@@ -85,6 +95,9 @@ public class FXMLDocumentController implements Initializable {
         saveFileName.setDisable(false);
     }
 
+    /**
+     * Stops the data collection after 10 seconds.
+     */
     public void stop() {
         M.setWrite(false);
         countdownTime.cont = false;
@@ -98,6 +111,11 @@ public class FXMLDocumentController implements Initializable {
         saveFileName.setDisable(false);
     }
 
+    /**
+     * Starts up the GUI, making sure everything is setup correctly.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

@@ -10,38 +10,18 @@ import java.util.Date;
 import org.json.JSONObject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import org.apache.log4j.BasicConfigurator;
 
 /**
- * <p>
- * Title: MindStreamSystemTray</p><br>
- * <p>
- * Description: Description: System tray app for streaming data from the
- * Neurosky MindSet/MindWave</p><br>
- *
- * @author          <a href="http://eric-blue.com">Eric Blue</a><br>
- *
- * $Date: 2014-01-26 19:36:10 $ $Author: ericblue76 $ $Revision: 1.9 $
- *
+ * Connects to the ThinkGear connector.
+ * @author josephyearsley
  */
-public class MindStreamSystemTray extends Service {
+public class MindStream extends Service {
 
     /**
      * Logger for this class
      */
-    private static final Logger logger = Logger.getLogger(MindStreamSystemTray.class);
+    private static final Logger logger = Logger.getLogger(MindStream.class);
 
-    /**
-     * System tray launcher
-     *
-     * @param args
-     * @return void
-     */
-    public static void main(String[] args) {
-        BasicConfigurator.configure();
-    }
-
-    // TODO Cleanup all System.out/.err with log4j calls
     final String HOST = "127.0.0.1";
     final int PORT = 13854;
     final String FILE_LOCATION = "/Users/josephyearsley/Documents/University/Dissertation/Data/";
@@ -53,7 +33,8 @@ public class MindStreamSystemTray extends Service {
     private FileWriter writer = null;
 
     /**
-     *
+     * Connects to the connector if not already connected, otherwise disconnects.
+     * @return if the headset is connected to the ThinkGear.
      */
     public boolean clientConnect() {
         if (!client.isConnected()) {
@@ -78,7 +59,10 @@ public class MindStreamSystemTray extends Service {
 
     ;
 
-    //Multi-task to take load off GUI thread
+    /**
+     * Task to display EEG data.
+     * @return A task for displaying EEG data.
+     */
     @Override
     protected synchronized Task<Void> createTask() {
         return new Task<Void>() {
@@ -92,10 +76,6 @@ public class MindStreamSystemTray extends Service {
                             logger.debug(clientData);
                             json = new JSONObject(clientData);
                             String newLine = System.getProperty("line.separator");
-                            /*
-                             * JH: check just in case it's not there due
-                             * to poorSignallevel
-                             */
                             if (!json.isNull("eegPower")) {
 
                                 String timeStamp = fmt.format(new Date());
@@ -122,7 +102,11 @@ public class MindStreamSystemTray extends Service {
             }
         };
     }
-
+    
+    /**
+     * Writes EEG data to CSV file.
+     * @param x If it should write or not.
+     */
     public synchronized void setWrite(Boolean x) {
         if (x) {
             String csvFile = FILE_LOCATION + TMP;
@@ -147,10 +131,17 @@ public class MindStreamSystemTray extends Service {
         }
     }
 
+    /**
+     * 
+     * @return if its writing or not.
+     */
     public Boolean getWrite() {
         return write;
     }
 
+    /**
+     * flushes the written data to file.
+     */
     protected synchronized void onCancelled() {
         try {
             if (writer != null) {
@@ -161,12 +152,20 @@ public class MindStreamSystemTray extends Service {
         }
     }
 
+    /**
+     * Saves the temporary file to a new file.
+     * @param fileName Name of which to call the file.
+     * @return If rename is successful or not.
+     */
     protected synchronized Boolean save(String fileName) {
         File tmp = new File(FILE_LOCATION + TMP);
         File newFile = new File(FILE_LOCATION + fileName + ".csv");
         return tmp.renameTo(newFile);
     }
 
+    /**
+     * Close everything up.
+     */
     protected synchronized void close() {
         try {
             if (writer != null) {

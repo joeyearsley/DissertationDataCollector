@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package dissertationdatacollector;
 
@@ -10,7 +5,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 /**
- *
+ * Simple 10 seconds countdown timer.
  * @author joe yearsley
  */
 public class countdownTimer extends Service{
@@ -20,7 +15,6 @@ public class countdownTimer extends Service{
         return new Task<Void>() {
          @Override protected Void call() throws Exception
         {
-            
             long start = System.currentTimeMillis();
             long totalSeconds = 10;
             updateMessage("10");
@@ -37,6 +31,7 @@ public class countdownTimer extends Service{
                     int secTotal = baseTotal - baseElapsed;
                     int s1 = secTotal % 60;
                     sSec = String.valueOf(s1);
+                    //New time
                     updateMessage(sSec);
                     if(s1 <= 0)
                     {
@@ -67,6 +62,7 @@ public class countdownTimer extends Service{
 
                 }
             }
+            //reset to default.
             updateMessage("10");
             return null;
         }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dissertationdatacollector;
 
 import javafx.application.Application;
@@ -12,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ * A simple GUI to allow for east collection of data from the MindWave.
  * @author josephyearsley
  */
 public class DissertationDataCollector extends Application {
