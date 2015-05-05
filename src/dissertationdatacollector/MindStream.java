@@ -24,7 +24,7 @@ public class MindStream extends Service {
 
     final String HOST = "127.0.0.1";
     final int PORT = 13854;
-    final String FILE_LOCATION = "/Users/josephyearsley/Documents/University/Dissertation/Data/";
+    final String FILE_LOCATION = "../Data/";
     final String TMP = "tmp.csv";
     final ThinkGearSocketClient client = new ThinkGearSocketClient();
     public JSONObject eegPower;
@@ -60,7 +60,7 @@ public class MindStream extends Service {
     ;
 
     /**
-     * Task to display EEG data.
+     * Task to display and write EEG data.
      * @return A task for displaying EEG data.
      */
     @Override
@@ -104,7 +104,7 @@ public class MindStream extends Service {
     }
     
     /**
-     * Writes EEG data to CSV file.
+     * Makes the writer, write to file.
      * @param x If it should write or not.
      */
     public synchronized void setWrite(Boolean x) {

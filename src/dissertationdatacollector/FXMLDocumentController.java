@@ -3,6 +3,8 @@ package dissertationdatacollector;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -120,6 +122,10 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         if (connected) {
+            //Ensure the data folder is setup
+            if(!new File(M.FILE_LOCATION).exists()){
+               new File(M.FILE_LOCATION).mkdirs();
+            }
             connectButton.setVisible(false);
             connectedLabel.setText("Connected");
             startButton.setVisible(true);

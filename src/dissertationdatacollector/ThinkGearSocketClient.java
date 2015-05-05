@@ -12,15 +12,8 @@ import java.util.Scanner;
 import org.apache.log4j.BasicConfigurator;
 
 /**
- * <p>
- * Title:	ThinkGearSocketClient</p><br>
- * <p>
- * Description:	NeuroSky ThinkGear socket client - supports JSON output</p><br>
- *
- * @author		    <a href="http://eric-blue.com">Eric Blue</a><br>
- *
- * $Date: 2012-07-08 03:31:28 $ $Author: ericblue76 $ $Revision: 1.4 $
- *
+ * NeuroSky ThinkGear socket client
+ * @author josephyearsley
  */
 public class ThinkGearSocketClient {
 
